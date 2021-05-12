@@ -1,3 +1,24 @@
+# Installation
+
+Create file movie_admin/.env with the following variables (adjust the values if needed):
+<br/><br/>
+```
+SECRET_KEY=  
+DEBUG=  
+DB_NAME=movies  
+DB_USER=movies  
+DB_PASSWORD=movies  
+DB_HOST=db  
+DB_PORT=5432  
+DB_OPTIONS="-c search_path=public,content"
+```
+
+Build the images with 
+`docker-compose build` to make the .env file included in the image.
+Start the containers with `docker-compose up`
+
+
+
 # Техническое задание
 
 В качестве второго задания предлагаем расширить проект «Панель администратора»: запустить приложение через WSGI/ASGI, настроить отдачу статических файлов через Nginx и подготовить инфраструктуру для работы с Docker. Для этого перенесите в репозиторий код, который вы написали в первом спринте, и выполните задания из папки `tasks`.
