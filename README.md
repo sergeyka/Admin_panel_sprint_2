@@ -1,17 +1,8 @@
 # Installation
 
-Create file movie_admin/.env with the following variables (adjust the values if needed):
-<br/><br/>
-```
-SECRET_KEY=  
-DEBUG=  
-DB_NAME=movies  
-DB_USER=movies  
-DB_PASSWORD=movies  
-DB_HOST=db  
-DB_PORT=5432  
-DB_OPTIONS="-c search_path=public,content"
-```
+`cp movie_admin/.env.local movie_admin/.env`
+
+Fill the value of SECRET_KEY in `movie_admin/.env`.
 
 Build the images with 
 `docker-compose build` to make the .env file included in the image.
