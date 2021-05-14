@@ -7,6 +7,13 @@ Build the images with
 `docker-compose build` to make the .env file included in the image.
 Start the containers with `docker-compose up`
 
+##Creating Django admin super user:  
+`docker-compose run --entrypoint="/bin/bash -c" admin "python manage.py createsuperuser"`  
+  
+  
+##Populating the database with movie data:  
+1. `cp movie_admin/.env sqlite_to_postgres/.env`  
+2. `docker-compose run -v $(pwd)/sqlite_to_postgres:/sqlite_to_postgres -w /sqlite_to_postgres --entrypoint="/bin/bash -c" admin "python load_data.py"`
 
 # Техническое задание
 

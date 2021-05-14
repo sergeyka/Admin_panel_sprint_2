@@ -37,7 +37,7 @@ class PostgresSaver:
             for genre_name in movie['genre']:
                 genre = Genre(name=genre_name)
                 genre.save(cursor)
-                FilmWorkGenre(film_work_id_id=film_work.id, genre_id_id=genre.id).save(cursor)
+                FilmWorkGenre(film_work_id=film_work.id, genre_id=genre.id).save(cursor)
 
             self._counter += 1
             print('.', end='', flush=True)

@@ -26,7 +26,7 @@ class sqliteloader:
         for row in self.cursor.execute(sql, (self.limit, self.start)):
             doc = {
                 'id': row['id'],
-                'imdb_rating': self.float_or_none(row['imdb_rating']),
+                'imdb_rating': self.float_or_zero(row['imdb_rating']),
                 'genre': [_.strip() for _ in row['genre'].split(',')],
                 'title': row['title'],
                 'director': [] if row['director'] == 'N/A' else [_.strip() for _ in row['director'].split(',')],
@@ -50,11 +50,11 @@ class sqliteloader:
             yield doc
 
     @staticmethod
-    def float_or_none(value):
+    def float_or_zero(value):
         try:
             return float(value)
         except ValueError:
-            return None
+            return 0
 
     def get_writers_by_ids(self, ids):
         placeholders = ",".join(["?"] * len(ids))

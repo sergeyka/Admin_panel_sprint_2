@@ -1,6 +1,10 @@
 import sqlite3
 import argparse
 
+from os import getenv
+from dotenv import load_dotenv
+load_dotenv()
+
 import psycopg2
 from psycopg2.extensions import connection as _connection
 from psycopg2.extras import DictCursor
@@ -32,6 +36,12 @@ def load_from_sqlite(connection: sqlite3.Connection, pg_conn: _connection):
 
 
 if __name__ == '__main__':
-    dsl = {'dbname': 'movies', 'user': 'movies', 'password': 'movies', 'host': '127.0.0.1', 'port': 5432}
+    dsl = {'dbname': getenv('DB_NAME', 'movies'),
+           'user': getenv('DB_USER', 'movies'),
+           'password': getenv('DB_PASSWORD', 'movies'),
+           'host': getenv('DB_HOST', '127.0.0.1'),
+           'port': getenv('DB_PORT', '5432'),
+           }
+
     with sqlite3.connect('db.sqlite') as sqlite_conn, psycopg2.connect(**dsl, cursor_factory=DictCursor) as pg_conn:
         load_from_sqlite(sqlite_conn, pg_conn)

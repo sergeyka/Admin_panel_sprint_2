@@ -3,7 +3,14 @@ import uuid
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from model_utils.models import TimeStampedModel
+
+
+class TimeStampedModel(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
 
 
 class FilmWorkType(models.TextChoices):

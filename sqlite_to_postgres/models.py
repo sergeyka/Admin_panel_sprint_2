@@ -1,3 +1,6 @@
+import datetime
+from pprint import pprint
+
 from dataclasses import dataclass, field, fields
 import uuid
 from typing import ClassVar
@@ -43,20 +46,28 @@ class Model:
                 self.id = result2[0]
 
 
-
 @dataclass
 class FilmWork(Model):
     title: str
-    description: str
-    rating: float
+    rating: float = -1
+    description: str = ""
+    created: str = str(datetime.datetime.now())
+    updated: str = str(datetime.datetime.now())
+    certificate: str = ""
+    file_path: str = ""
+    type: str = ""
     id: uuid.UUID = field(default_factory=uuid.uuid4)
     _table: ClassVar[str] = "film_work"
     _uniq_field: ClassVar[str] = "title"
 
 
+
 @dataclass
 class Genre(Model):
     name: str
+    description: str = ""
+    created: str = str(datetime.datetime.now())
+    updated: str = str(datetime.datetime.now())
     id: uuid.UUID = field(default_factory=uuid.uuid4)
     _table: ClassVar[str] = "genre"
     _uniq_field: ClassVar[str] = "name"
@@ -72,8 +83,8 @@ class Person(Model):
 
 @dataclass
 class FilmWorkGenre(Model):
-    film_work_id_id: uuid.UUID
-    genre_id_id: uuid.UUID
+    film_work_id: uuid.UUID
+    genre_id: uuid.UUID
     _table: ClassVar[str] = "film_work_genre"
 
 
@@ -82,4 +93,6 @@ class FilmWorkPerson(Model):
     film_work_id: uuid.UUID
     person_id: uuid.UUID
     role: str
+    created: str = str(datetime.datetime.now())
+    updated: str = str(datetime.datetime.now())
     _table: ClassVar[str] = "film_work_person"
