@@ -9,7 +9,7 @@ services:
       - pgdata:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=movies
-      - POSTGRES_PASSWORD=sfk24fis3
+      - POSTGRES_PASSWORD=movies
 
   # django admin panel
   admin:
@@ -19,6 +19,8 @@ services:
       context: movie_admin
     volumes:
       - static:/code/static
+    env_file:
+      - movie_admin/.env
 
   # the bleeding edge server
   web:
@@ -36,6 +38,8 @@ services:
     image: elasticsearch:7.7.0
     environment:
       discovery.type: single-node
+    logging:
+      driver: none
 
 volumes:
   static:

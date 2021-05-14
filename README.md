@@ -1,13 +1,11 @@
 # Installation
 
+Copy the .env file:
 `cp movie_admin/.env.local movie_admin/.env`
-
-Fill the value of SECRET_KEY in `movie_admin/.env`.
 
 Build the images with 
 `docker-compose build` to make the .env file included in the image.
 Start the containers with `docker-compose up`
-
 
 
 # Техническое задание
