@@ -1,3 +1,4 @@
+from asyncio import SafeChildWatcher
 from pprint import pprint
 
 from django.db.models.query import QuerySet
@@ -28,6 +29,7 @@ class MoviesApiMixin:
             writers=ArrayAgg('persons__person__full_name', filter=Q(persons__role__exact='writer'), distinct=True),
             genres=ArrayAgg('film_genres__genre__name', distinct=True)
         )
+
         return queryset.values()
 
     def render_to_response(self, context, **response_kwargs):
@@ -61,8 +63,23 @@ class Movies(MoviesApiMixin, BaseListView):
 
 
 class MovieDetail(MoviesApiMixin, BaseDetailView):
-    def get_context_data(self, **kwargs):
+    def get_object(self, queryset=None):
+        try:
+            return self.get_queryset().filter(id=self.kwargs['pk']).get()
+        except FilmWork.DoesNotExist as err:
+            return None
+
+    def get_context_data(self, object, **kwargs):
         """
         Details of a single movie
         Raise 404 exception if ID is not found """
-        movie = self.get_queryset().filter(id=self.kwargs['pk']).get()
+        print(object)
+        try:
+            context = {
+                'results': object,
+            }
+        except Exception as err:
+            print(err)
+            print("Exception!!")
+
+        return context
