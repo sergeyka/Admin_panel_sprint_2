@@ -20,7 +20,7 @@ Start the containers with `docker-compose up -d`
 
 The output should look like this.
 (The problem of NOT NULL errors should be solved by default values in sqlite_to_postgres/models.py)
-![all](files/img.png)
+![all](images/img.png)
 
 # Техническое задание
 
