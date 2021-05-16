@@ -4,8 +4,11 @@ Copy the .env file:
 `cp movie_admin/.env.local movie_admin/.env`
 
 Build the images with 
-`docker-compose build` to make the .env file included in the image.
-Start the containers with `docker-compose up`
+`docker-compose build --no-cache` to make the .env file included in the image.
+
+[!] Please make sure to add --no-cache flag for a fresh new install
+
+Start the containers with `docker-compose up -d`
 
 ##Creating Django admin super user:  
 `docker-compose run --entrypoint="/bin/bash -c" admin "python manage.py createsuperuser"`  
@@ -13,7 +16,11 @@ Start the containers with `docker-compose up`
   
 ##Populating the database with movie data:  
 1. `cp movie_admin/.env sqlite_to_postgres/.env`  
-2. `docker-compose run -v $(pwd)/sqlite_to_postgres:/sqlite_to_postgres -w /sqlite_to_postgres --entrypoint="/bin/bash -c" admin "python load_data.py"`
+2. `docker-compose run -v $(pwd)/sqlite_to_postgres:/sqlite_to_postgres -w /sqlite_to_postgres --entrypoint="/bin/bash -c" admin "python load_data.py --reset"`
+
+The output should look like this.
+(The problem of NOT NULL errors should be solved by default values in sqlite_to_postgres/models.py)
+![all](files/img.png)
 
 # Техническое задание
 
